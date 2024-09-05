@@ -34,18 +34,30 @@
             font-size: 32px;
             text-align: center;
         }
+
+        #fullscreen-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div id="error-container">
         <div id="error-message">Error: System Failure!</div>
+        <button id="fullscreen-button">Enter Full-Screen</button>
     </div>
 
     <script>
         let tapCount = 0;
 
         // Function to request full-screen mode
-        function requestFullScreen() {
+        function goFullScreen() {
             const elem = document.documentElement;
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
@@ -81,16 +93,16 @@
 
         // Handle taps on the screen
         document.addEventListener('click', handleTap);
+        document.addEventListener('touchstart', handleTap); // Handle touch events
+
+        // Add event listener to button
+        document.getElementById('fullscreen-button').addEventListener('click', goFullScreen);
 
         // Request full-screen mode once the page is fully loaded
         window.onload = function() {
-            // Ensure full-screen request is user-initiated
-            setTimeout(() => {
-                requestFullScreen();
-                // Hide mobile navigation bars
-                document.documentElement.style.overflow = 'hidden';
-                window.scrollTo(0, 1);
-            }, 100); // Delay to ensure the page has fully loaded
+            // Hide mobile navigation bars
+            document.documentElement.style.overflow = 'hidden';
+            window.scrollTo(0, 1);
         };
     </script>
 </body>
