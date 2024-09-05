@@ -45,7 +45,7 @@
         let tapCount = 0;
 
         // Function to request full-screen mode
-        function goFullScreen() {
+        function requestFullScreen() {
             const elem = document.documentElement;
             if (elem.requestFullscreen) {
                 elem.requestFullscreen();
@@ -79,23 +79,18 @@
             }
         }
 
-        // Disable right-click
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Disable scrolling
-        window.addEventListener('scroll', function() {
-            window.scrollTo(0, 0);
-        });
-
         // Handle taps on the screen
         document.addEventListener('click', handleTap);
 
-        // Initiate full-screen mode when the page loads
+        // Request full-screen mode once the page is fully loaded
         window.onload = function() {
-            goFullScreen();
-            // Hide mobile navigation bars
-            document.documentElement.style.overflow = 'hidden';
-            window.scrollTo(0, 1);
+            // Ensure full-screen request is user-initiated
+            setTimeout(() => {
+                requestFullScreen();
+                // Hide mobile navigation bars
+                document.documentElement.style.overflow = 'hidden';
+                window.scrollTo(0, 1);
+            }, 100); // Delay to ensure the page has fully loaded
         };
     </script>
 </body>
