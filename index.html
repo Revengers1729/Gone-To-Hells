@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Error Screen</title>
+    <title>Hacking Simulation</title>
     <style>
         body, html {
             margin: 0;
@@ -14,100 +15,56 @@
             justify-content: center;
             align-items: center;
             background-color: black;
-            color: red;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Disable scrolling */
-            user-select: none; /* Prevent text selection */
-            -webkit-user-select: none;
-            -ms-user-select: none;
-            touch-action: none; /* Disable touch gestures */
+            color: green;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 20px;
+            overflow: hidden;
+            user-select: none;
         }
-
-        #error-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #error-message {
-            font-size: 32px;
+        #output {
+            white-space: pre-wrap;
             text-align: center;
+            width: 80%;
+            height: 80%;
         }
     </style>
 </head>
 <body>
-    <div id="error-container">
-        <div id="error-message">Error: System Failure!</div>
-    </div>
+    <div id="output">Click or Tap to Start Hacking Simulation...</div>
 
     <script>
-        let tapCount = 0;
-        let fullScreenRequested = false;
+        // Array of fake hacking steps
+        const hackingSteps = [
+            "Initializing connection...",
+            "Connecting to server...",
+            "Downloading data...",
+            "Download complete!",
+            "Accessing files...",
+            "Files decrypted successfully!",
+            "Access granted!",
+            "System breach successful!"
+        ];
 
-        // Function to request full-screen mode
-        function goFullScreen() {
-            const elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.mozRequestFullScreen) { /* Firefox */
-                elem.mozRequestFullScreen();
-            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                elem.msRequestFullscreen();
+        // Function to simulate the hacking sequence
+        function simulateHacking() {
+            const outputDiv = document.getElementById('output');
+            let step = 0;
+
+            function displayNextStep() {
+                if (step < hackingSteps.length) {
+                    outputDiv.textContent += "\n" + hackingSteps[step];
+                    step++;
+                    setTimeout(displayNextStep, 1500);  // Show next step after 1.5 seconds
+                }
             }
-            fullScreenRequested = true;
+
+            outputDiv.textContent = "";  // Clear initial text
+            displayNextStep();  // Start displaying hacking steps
         }
 
-        // Increment tap counter and check if 10 taps have been reached
-        function handleTap() {
-            tapCount++;
-            if (tapCount >= 10) {
-                exitFullScreen();
-            }
-        }
-
-        // Exit full-screen mode
-        function exitFullScreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) { /* Firefox */
-                document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE/Edge */
-                document.msExitFullscreen();
-            }
-            tapCount = 0; // Reset tap count after exiting
-            fullScreenRequested = false; // Reset full-screen request status
-        }
-
-        // Handle taps on the screen
-        function onTouch() {
-            if (!fullScreenRequested) {
-                goFullScreen();
-            }
-            handleTap();
-        }
-
-        // Disable right-click
-        document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Disable scrolling
-        window.addEventListener('scroll', function() {
-            window.scrollTo(0, 0);
-        });
-
-        // Handle touch and click events
-        document.addEventListener('click', onTouch);
-        document.addEventListener('touchstart', onTouch); // Handle touch events
-
-        // Request full-screen mode once the page is fully loaded
-        window.onload = function() {
-            // Hide mobile navigation bars
-            document.documentElement.style.overflow = 'hidden';
-            window.scrollTo(0, 1);
-        };
+        // Start simulation on click or touch
+        document.addEventListener('click', simulateHacking);
+        document.addEventListener('touchstart', simulateHacking);
     </script>
 </body>
 </html>
