@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Screen</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: red;
+            font-family: Arial, sans-serif;
+            user-select: none; /* Prevent text selection */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
+        #error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #error-message {
+            font-size: 32px;
+            text-align: center;
+        }
+
+        #tap-message {
+            font-size: 16px;
+            color: white;
+            margin-top: 20px;
+        }
+
+        #tap-counter {
+            font-size: 18px;
+            color: yellow;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="error-container">
+        <div id="error-message">Error: System Failure!</div>
+        <div id="tap-message">Tap 10 times to exit</div>
+        <div id="tap-counter">Taps: 0</div>
+    </div>
+
+    <script>
+        let tapCount = 0;
+
+        // Make the page go full-screen immediately
+        function goFullScreen() {
+            const doc = document.documentElement;
+            if (doc.requestFullscreen) {
+                doc.requestFullscreen();
+            } else if (doc.mozRequestFullScreen) { /* Firefox */
+                doc.mozRequestFullScreen();
+            } else if (doc.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                doc.webkitRequestFullscreen();
+            } else if (doc.msRequestFullscreen) { /* IE/Edge */
+                doc.msRequestFullscreen();
+            }
+        }
+
+        // Increment tap counter and check if 10 taps have been reached
+        function handleTap() {
+            tapCount++;
+            document.getElementById('tap-counter').innerText = `Taps: ${tapCount}`;
+            
+            // If 10 taps are reached, exit full screen
+            if (tapCount >= 10) {
+                exitFullScreen();
+            }
+        }
+
+        // Exit full-screen mode
+        function exitFullScreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
+        }
+
+        // Disable any right-clicks
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Tap event listener
+        document.addEventListener('click', handleTap);
+
+        // Initiate full-screen mode on page load
+        window.onload = goFullScreen;
+    </script>
+</body>
+</html>
