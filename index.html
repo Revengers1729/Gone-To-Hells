@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +29,7 @@
     </style>
 </head>
 <body>
-    <div id="output">Click or Tap to Start Hacking Simulation...</div>
+    <div id="output">Starting hacking simulation...</div>
 
     <script>
         // Array of fake hacking steps
@@ -62,9 +61,8 @@
             displayNextStep();  // Start displaying hacking steps
         }
 
-        // Start simulation on click or touch
-        document.addEventListener('click', simulateHacking);
-        document.addEventListener('touchstart', simulateHacking);
+        // Automatically start simulation when the page loads
+        window.onload = simulateHacking;
     </script>
 </body>
 </html>
