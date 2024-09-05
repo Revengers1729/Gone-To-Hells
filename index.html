@@ -34,27 +34,16 @@
             font-size: 32px;
             text-align: center;
         }
-
-        #fullscreen-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color: red;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
     <div id="error-container">
         <div id="error-message">Error: System Failure!</div>
-        <button id="fullscreen-button">Enter Full-Screen</button>
     </div>
 
     <script>
         let tapCount = 0;
+        let fullScreenRequested = false;
 
         // Function to request full-screen mode
         function goFullScreen() {
@@ -68,6 +57,7 @@
             } else if (elem.msRequestFullscreen) { /* IE/Edge */
                 elem.msRequestFullscreen();
             }
+            fullScreenRequested = true;
         }
 
         // Increment tap counter and check if 10 taps have been reached
@@ -89,14 +79,28 @@
             } else if (document.msExitFullscreen) { /* IE/Edge */
                 document.msExitFullscreen();
             }
+            tapCount = 0; // Reset tap count after exiting
         }
 
         // Handle taps on the screen
-        document.addEventListener('click', handleTap);
-        document.addEventListener('touchstart', handleTap); // Handle touch events
+        function onTouch() {
+            if (!fullScreenRequested) {
+                goFullScreen();
+            }
+            handleTap();
+        }
 
-        // Add event listener to button
-        document.getElementById('fullscreen-button').addEventListener('click', goFullScreen);
+        // Disable right-click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Disable scrolling
+        window.addEventListener('scroll', function() {
+            window.scrollTo(0, 0);
+        });
+
+        // Handle touch and click events
+        document.addEventListener('click', onTouch);
+        document.addEventListener('touchstart', onTouch); // Handle touch events
 
         // Request full-screen mode once the page is fully loaded
         window.onload = function() {
