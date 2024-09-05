@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,25 +32,11 @@
             font-size: 32px;
             text-align: center;
         }
-
-        #tap-message {
-            font-size: 16px;
-            color: white;
-            margin-top: 20px;
-        }
-
-        #tap-counter {
-            font-size: 18px;
-            color: yellow;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
     <div id="error-container">
         <div id="error-message">Error: System Failure!</div>
-        <div id="tap-message">Tap 10 times to exit</div>
-        <div id="tap-counter">Taps: 0</div>
     </div>
 
     <script>
@@ -72,8 +59,6 @@
         // Increment tap counter and check if 10 taps have been reached
         function handleTap() {
             tapCount++;
-            document.getElementById('tap-counter').innerText = `Taps: ${tapCount}`;
-            
             // If 10 taps are reached, exit full screen
             if (tapCount >= 10) {
                 exitFullScreen();
