@@ -57,10 +57,10 @@
                 if (step < hackingSteps.length) {
                     outputDiv.textContent += "\n" + hackingSteps[step];
                     step++;
-                    setTimeout(displayNextStep, 1500);  // Show next step after 1.5 seconds
+                    setTimeout(displayNextStep, 1500);  // Show next step after 2 seconds
                 } else {
                     setTimeout(function () {
-                        outputDiv.textContent += "\n\nTab will close now...";
+                        outputDiv.textContent += "\n\nOk Bye...";
                         window.close();  // Attempt to close the tab
                     }, 2000);  // Wait 2 seconds before attempting to close the tab
                 }
