@@ -42,7 +42,7 @@
             "Files decrypted successfully!",
             "Access granted!",
             "System breach successful!",
-            "You have messed with wrong person!",
+            "You have messed with the wrong person!",
             "YOUR DATA IS BREACHED!",
             "See you tomorrow in school khargosh",
             "Don't panic, I will not misuse your data. :("
@@ -60,8 +60,9 @@
                     setTimeout(displayNextStep, 1500);  // Show next step after 1.5 seconds
                 } else {
                     setTimeout(function () {
-                        window.open('', '_self').close();  // Close the tab after the final message
-                    }, 3000);  // Wait 3 seconds before closing
+                        outputDiv.textContent += "\n\nTab will close now...";
+                        window.close();  // Attempt to close the tab
+                    }, 2000);  // Wait 2 seconds before attempting to close the tab
                 }
             }
 
@@ -71,12 +72,10 @@
 
         // Automatically start simulation when the page loads
         window.onload = function() {
-            alert("For better privacy, please open this link in Incognito or Private Mode.");
             simulateHacking();
-            // Replace current page in history with the same URL to avoid multiple history entries
-            window.location.replace(window.location.href);
         };
     </script>
 </body>
 </html>
+
 
