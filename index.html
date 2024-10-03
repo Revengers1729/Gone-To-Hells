@@ -62,8 +62,10 @@
                 } else {
                     setTimeout(function () {
                         outputDiv.textContent += "\n\nTab will close now...";
-                        window.close();  // Attempt to close the tab
-                    }, 2000);  // Wait 2 seconds before attempting to close the tab
+                        setTimeout(function() {
+                            window.close();  // Attempt to close the tab
+                        }, 2000);  // Wait 2 seconds before attempting to close the tab
+                    }, 2000);  // Wait 2 seconds after final message
                 }
             }
 
@@ -78,5 +80,6 @@
     </script>
 </body>
 </html>
+
 
 
