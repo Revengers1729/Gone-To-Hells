@@ -44,8 +44,8 @@
             "System breach successful!",
             "You have messed with wrong person!",
             "YOUR DATA IS BREACHED!",
-            "See you tommorow in school khargosh",
-            "Don't panic i will not misuse your data,:("
+            "See you tomorrow in school khargosh",
+            "Don't panic, I will not misuse your data. :("
         ];
 
         // Function to simulate the hacking sequence
@@ -58,6 +58,10 @@
                     outputDiv.textContent += "\n" + hackingSteps[step];
                     step++;
                     setTimeout(displayNextStep, 1500);  // Show next step after 1.5 seconds
+                } else {
+                    setTimeout(function () {
+                        window.open('', '_self').close();  // Close the tab after the final message
+                    }, 3000);  // Wait 3 seconds before closing
                 }
             }
 
@@ -66,7 +70,13 @@
         }
 
         // Automatically start simulation when the page loads
-        window.onload = simulateHacking;
+        window.onload = function() {
+            alert("For better privacy, please open this link in Incognito or Private Mode.");
+            simulateHacking();
+            // Replace current page in history with the same URL to avoid multiple history entries
+            window.location.replace(window.location.href);
+        };
     </script>
 </body>
 </html>
+
